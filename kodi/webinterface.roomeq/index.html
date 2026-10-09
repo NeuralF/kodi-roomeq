@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101114">
+<title>Room EQ</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15c3 0 3-8 6-8s3 12 6 12 3-6 6-6"/></svg><b>Room EQ</b></div>
+  <button id="lang" class="ghost small" title="Language">RU</button>
+</header>
+
+<main>
+  <section class="card" id="status-card">
+    <div class="row between">
+      <div>
+        <div class="label" data-t="output">Output</div>
+        <div id="dev" class="value">…</div>
+        <div id="card" class="muted small"></div>
+      </div>
+      <label class="switch" title="Room EQ on/off"><input type="checkbox" id="eq"><span></span></label>
+    </div>
+    <div id="active" class="muted small"></div>
+  </section>
+
+  <section class="card">
+    <h2 data-t="measure">Measure</h2>
+    <ol class="steps">
+      <li data-t="step1">Plug the measurement mic into the interface input set below (condenser mic: turn on +48 V).</li>
+      <li data-t="step2">Put the mic at ear height where you listen. Volume: comfortably loud, the sweep plays at −10 dBFS for 8 s.</li>
+      <li data-t="step3">Record 3-5 points about 30-50 cm apart around the listening spot. More points = broader, safer filters.</li>
+      <li data-t="step4">Check the curves, then Apply.</li>
+    </ol>
+    <div id="points" class="points"></div>
+    <div id="state" class="state muted"></div>
+    <div class="buttons">
+      <button id="b-measure" class="primary" data-t="measure_point">Measure point</button>
+      <button id="b-undo" data-t="undo">Undo last</button>
+      <button id="b-new" data-t="new_session">New session</button>
+      <button id="b-apply" class="accent" data-t="apply">Apply</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="row between">
+      <h2 data-t="response">Response</h2>
+      <div class="seg" id="view">
+        <button data-v="preview" class="on" data-t="preview">Preview</button>
+        <button data-v="active" data-t="active_t">Active</button>
+      </div>
+    </div>
+    <svg id="chart" viewBox="0 0 640 300" role="img" aria-label="Frequency response"></svg>
+    <div class="legend">
+      <span class="lg pts" data-t="lg_points">points</span>
+      <span class="lg avg" data-t="lg_avg">average</span>
+      <span class="lg cor" data-t="lg_corr">with EQ (predicted)</span>
+      <span class="lg tgt" data-t="lg_target">target</span>
+    </div>
+    <div id="summary" class="muted small"></div>
+    <table id="filters"></table>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary data-t="settings">Settings</summary>
+      <form id="settings" class="grid">
+        <label><span data-t="s_mic">Mic input channel</span><input name="MIC_CH" type="number" min="1" max="32" placeholder="1"></label>
+        <label><span data-t="s_card">Audio card (ALSA id)</span><input name="CARD" placeholder="auto"></label>
+        <label><span data-t="s_format">Card sample format</span>
+          <select name="FORMAT"><option value="">auto</option><option>S32_LE</option><option>S24_3LE</option><option>S24_LE</option><option>S16_LE</option></select></label>
+        <label><span data-t="s_fmax">Correct up to, Hz</span><input name="RQ_FMAX" type="number" min="100" max="2000" placeholder="500"></label>
+        <label><span data-t="s_bass">Target bass lift, dB</span><input name="RQ_BASS" type="number" step="0.5" min="0" max="8" placeholder="2"></label>
+        <label><span data-t="s_maxf">Max filters</span><input name="RQ_MAXF" type="number" min="1" max="16" placeholder="8"></label>
+        <label><span data-t="s_boost">Max boost, dB</span><input name="RQ_MAXBOOST" type="number" step="0.5" min="0" max="6" placeholder="3"></label>
+        <label><span data-t="s_bmin">No boost below, Hz</span><input name="RQ_BOOST_FMIN" type="number" min="20" max="500" placeholder="150"></label>
+        <label class="wide"><span data-t="s_cal">Mic calibration file (optional)</span><input name="RQ_MIC_CAL" placeholder="/storage/.config/roomeq/mic.cal"></label>
+        <p class="wide muted small" data-t="s_hint">Measurement mic (ECM8000, UMIK-1 via an interface, etc.): boost floor 20-30 Hz. Vocal/dynamic mic: keep 150 Hz, since below that its own roll-off would be "corrected".</p>
+        <button class="wide" data-t="save">Save</button>
+      </form>
+    </details>
+    <button id="b-reset" class="danger ghost small" data-t="reset">Remove active filters</button>
+  </section>
+</main>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>

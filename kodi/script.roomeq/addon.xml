@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.roomeq" name="Room EQ helper" version="1.0.0" provider-name="kodi-roomeq">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Runs Room EQ measurements for the Room EQ web page</summary>
+    <description lang="en_GB">Helper for webinterface.roomeq: starts measurements, applies filters and stores settings. Not meant to be started by hand.</description>
+    <license>MIT</license>
+    <platform>linux</platform>
+  </extension>
+</addon>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="webinterface.roomeq" name="Room EQ" version="1.0.0" provider-name="kodi-roomeq">
+  <requires>
+    <import addon="xbmc.webinterface" version="1.0.0"/>
+    <import addon="script.roomeq" version="1.0.0"/>
+  </requires>
+  <extension point="xbmc.webinterface" type="static" library="index.html"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Measure the room and apply automatic room correction</summary>
+    <description lang="en_GB">Web page for kodi-roomeq: records sweeps with a measurement mic, averages several listening positions, fits low-frequency correction filters and switches Kodi's output between the corrected and the direct device. Open it at http://&lt;kodi&gt;:8080/addons/webinterface.roomeq/</description>
+    <license>MIT</license>
+    <platform>linux</platform>
+  </extension>
+</addon>
